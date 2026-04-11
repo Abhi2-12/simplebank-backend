@@ -20,5 +20,11 @@ public class AuthController {
     @PostMapping("/register")
     public User postMethodName(@RequestBody User user) {
         return userService.registerUser(user);
-    }    
+    } 
+    
+    @PostMapping("/login")
+    public User login(@RequestBody User user) {
+        return userService.loginUser(user.getUsername(), user.getPassword());
+    }
+    
 }

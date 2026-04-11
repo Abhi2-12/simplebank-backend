@@ -19,5 +19,20 @@ public class UserService {
             throw new RuntimeException("Username already exists");    
         }
         return userRepository.save(user);
-    }   
+    } 
+    
+    //login user
+    public User loginUser(String username,String password) {
+
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid password");
+        }
+        return user;
+    }
 }
