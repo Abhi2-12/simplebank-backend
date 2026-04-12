@@ -29,4 +29,14 @@ public class AccountService {
 
         return accountRepository.save(account);
     }
+
+    public Account approveAccount(Long accountId) {
+
+        Account account = accountRepository.findById(accountId)
+        .orElseThrow(() -> new RuntimeException("Account not found"));
+        
+        account.setStatus(AccountStatus.ACTIVE);
+
+        return accountRepository.save(account);
+    }
 }

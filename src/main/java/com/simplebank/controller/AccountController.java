@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.simplebank.service.AccountService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/accounts")
@@ -20,5 +21,9 @@ public class AccountController {
     public Account requestAccount(@RequestParam Long userId) {
         return accountService.requestAccount(userId);
     }
-    
+
+    @PutMapping("admin/approve/{id}")
+    public Account approveAccount(@PathVariable Long id) {
+        return accountService.approveAccount(id);
+    }  
 }
