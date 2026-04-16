@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
@@ -25,5 +26,11 @@ public class AccountController {
     @PutMapping("admin/approve/{id}")
     public Account approveAccount(@PathVariable Long id) {
         return accountService.approveAccount(id);
-    }  
+    }
+    
+    @PostMapping("/deposit")
+    public Account deposit(@RequestParam(required = true) Long accountId,
+                           @RequestParam(required = true) double amount) {
+        return accountService.deposit(accountId, amount);
+    }    
 }

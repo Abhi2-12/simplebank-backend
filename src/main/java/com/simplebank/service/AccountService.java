@@ -39,4 +39,16 @@ public class AccountService {
 
         return accountRepository.save(account);
     }
+
+    public Account deposit(Long accountId, double amount) {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        if(account.getStatus() != AccountStatus.ACTIVE) {
+            throw new RuntimeException("Account not active");
+        }
+
+        account.setBalance(account.getBalance() + amount);
+
+        return accountRepository.save(account);
+    }
 }
