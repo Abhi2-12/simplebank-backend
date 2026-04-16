@@ -9,6 +9,8 @@ import com.simplebank.service.AccountService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -32,5 +34,11 @@ public class AccountController {
     public Account deposit(@RequestParam(required = true) Long accountId,
                            @RequestParam(required = true) double amount) {
         return accountService.deposit(accountId, amount);
-    }    
+    } 
+    
+    @PostMapping("/withdraw")
+    public Account withdraw(@RequestParam Long accountId, 
+                            @RequestParam double amount) {
+        return accountService.withdrow(accountId, amount);
+    }   
 }

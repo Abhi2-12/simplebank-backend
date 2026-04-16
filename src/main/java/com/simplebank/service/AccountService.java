@@ -41,13 +41,31 @@ public class AccountService {
     }
 
     public Account deposit(Long accountId, double amount) {
-        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        Account account = accountRepository.findById(accountId)
+        .orElseThrow(() -> new RuntimeException("Account not found"));
 
         if(account.getStatus() != AccountStatus.ACTIVE) {
             throw new RuntimeException("Account not active");
         }
 
         account.setBalance(account.getBalance() + amount);
+
+        return accountRepository.save(account);
+    }
+
+    public Account withdrow(Long accountId, double amount) {
+        Account account = accountRepository.findById(accountId)
+        .orElseThrow(() -> new RuntimeException("Account not Found"));
+//only active user can withdraw money
+        if(account.getStatus() != AccountStatus.ACTIVE) {
+            throw new RuntimeException("Account not active");
+        }
+//cant withdraw more than balance
+        if(account.getBalance() < amount) {
+            throw new RuntimeException("Insufficient Balance");
+        }
+
+        account.setBalance(account.getBalance() - amount);
 
         return accountRepository.save(account);
     }
